@@ -1,0 +1,97 @@
+
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+ext.adsConsentVersion = '1.0.8'
+
+android {
+    compileSdkVersion sdk_target
+    defaultConfig {
+        applicationId 'it.scoppelletti.consent.sample'
+        minSdkVersion sdk_min
+        targetSdkVersion sdk_target
+        versionCode 1
+        versionName adsConsentVersion
+        vectorDrawables.useSupportLibrary = true
+        if (project.hasProperty('ads.publisherId')) {
+            buildConfigField 'String', 'ADS_PUBLISHERID',
+                    '"' + project.property('ads.publisherId') + '"'
+        } else {
+            buildConfigField 'String', 'ADS_PUBLISHERID', '"N/D"'
+        }
+        if (project.hasProperty('ads.adAppId')) {
+            buildConfigField 'String', 'ADS_APPID',
+                    '"' + project.property('ads.adAppId') + '"'
+            manifestPlaceholders =
+                    [ adsAppId : project.property('ads.adAppId') ]
+        } else {
+            buildConfigField 'String', 'ADS_APPID', '"N/D"'
+        }
+        if (project.hasProperty('ads.adUnitId')) {
+            buildConfigField 'String', 'ADS_UNITID',
+                    '"' + project.property('ads.adUnitId') + '"'
+        } else {
+            buildConfigField 'String', 'ADS_UNITID', '"N/D"'
+        }
+    }
+    buildFeatures {
+        viewBinding true
+    }
+    buildTypes {
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro', 'debug-rules.pro'
+            debuggable true
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable false
+        }
+    }
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}
+
+configurations {
+    bom
+    implementation.extendsFrom(bom)
+    kapt.extendsFrom(bom)
+    coreLibraryDesugaring.extendsFrom(bom)
+}
+
+dependencies {
+    bom platform(BOM)
+    bom platform("com.google.firebase:firebase-bom:${firebase_version}")
+    implementation project(':lib')
+    implementation 'androidx.annotation:annotation'
+    implementation 'androidx.appcompat:appcompat'
+    implementation 'androidx.browser:browser'
+    implementation 'androidx.preference:preference'
+    implementation "com.google.android.ads.consent:consent-library:${adsConsentVersion}"
+    implementation 'com.google.android.gms:play-services-ads'
+    implementation 'com.google.android.material:material'
+    implementation 'com.google.firebase:firebase-core'
+    implementation 'io.github.microutils:kotlin-logging'
+    implementation 'it.scoppelletti.spaceship:spaceship'
+    implementation 'it.scoppelletti.spaceship:spaceship-stdlib'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}"
+    implementation 'org.slf4j:slf4j-api'
+    runtimeOnly 'com.noveogroup.android:android-logger'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs'
+}

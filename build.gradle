@@ -1,0 +1,54 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+apply plugin: 'com.github.ben-manes.versions'
+
+buildscript {
+    ext.BOM = 'it.scoppelletti.spaceship:spaceship-bom:1.0.0'
+    ext.android_gradle_version = '7.0.0'
+    ext.firebase_version = '28.3.0'
+    ext.kotlin_version = '1.5.21'
+    ext.sdk_min = 21
+    ext.sdk_target = 30
+
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+
+        if (project.hasProperty('it.scoppelletti.tools.devRepoUrl')) {
+            maven {
+                url project.property('it.scoppelletti.tools.devRepoUrl')
+            }
+        }
+    }
+    dependencies {
+        classpath platform(BOM)
+        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin'
+        classpath "com.android.tools.build:gradle:${android_gradle_version}"
+        classpath 'com.github.ben-manes:gradle-versions-plugin'
+        classpath 'com.google.gms:google-services'
+        classpath 'it.scoppelletti.spaceship:spaceship-gradle-android'
+        classpath 'org.jetbrains.dokka:dokka-gradle-plugin'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+
+        if (project.hasProperty('it.scoppelletti.tools.devRepoUrl')) {
+            maven {
+                url project.property('it.scoppelletti.tools.devRepoUrl')
+            }
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

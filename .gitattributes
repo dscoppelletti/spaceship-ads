@@ -1,0 +1,8 @@
+# Files attributes
+*.jar binary
+.gitignore export-ignore
+.gitattributes export-ignore
+google-services.json filter=git-crypt diff=git-crypt
+app/gradle.properties filter=git-crypt diff=git-crypt
+consent/gradle.properties filter=git-crypt diff=git-crypt
+

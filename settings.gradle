@@ -1,0 +1,4 @@
+rootProject.name = "Spaceship for AdMob"
+include ':app'
+include ':consent'
+include ':lib'
