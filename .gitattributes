@@ -1,5 +1,6 @@
 # Files attributes
 *.jar binary
+*.png binary
 .gitignore export-ignore
 .gitattributes export-ignore
 google-services.json filter=git-crypt diff=git-crypt
