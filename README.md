@@ -9,9 +9,9 @@ This library is no longer being maintained just like
 Maybe the [User Messaging Platform SDK](http://developers.google.com/admob/ump/android/quick-start)
 could prove better.
 
-Anyway complying GDPR and other laws of that bunch stated around the world is a
-pain and likely the advertising revenue does not pay the effort - maybe it does
-to a software company, but surely it does not to an individual programmer.
+> Anyway complying GDPR and other laws of that bunch stated around the world is a
+> pain and likely the advertising revenue does not pay the effort - maybe it does
+> to a software company, but surely it does not to an individual programmer.
 
 # Package it.scoppelletti.spaceship.ads
 
